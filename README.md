@@ -150,3 +150,41 @@ class LivroDAO:
         return None
 
 
+
+# |Ciclo de vida da conexão JDBC|
+
+-: Basicamente o ciclo de vida da conexão JDBC representa todas as etapas desde a abertura da conexão até o fechamento dos recursos após executar operações no banco de dados e ela compreende a sequência padronizada de operações para estabelecer, utilizar e encerrar a comunicação entre uma aplicação Java e um banco de dados relacional até por que este ciclo garante o gerenciamento adequado de recursos.
+
+
+# |Etapas|
+
+1:
+# Carregar configurações
+ler db.properties (URL, usuário, senha)
+
+2:
+# Abrir conexão
+criar conexão com o banco usando DriverManager.getConnection entre outros.
+
+3:
+# Preparar o SQL
+criar um PreparedStatement com a query usando ?.
+
+4:
+# Definir parâmetros
+passar valores com setString, setInt, etc.
+
+5:
+# Executar comando
+executeQuery() (SELECT)
+executeUpdate() (INSERT, UPDATE, DELETE)
+
+6:
+# Processar resultado
+ler dados com ResultSet e transformar em objetos (model)
+
+7:
+# Fechar recursos
+fechar ResultSet, PreparedStatement e Connection, preferencialmente com try-with-resources.
+
+
