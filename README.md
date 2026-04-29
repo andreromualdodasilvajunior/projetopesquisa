@@ -188,3 +188,26 @@ ler dados com ResultSet e transformar em objetos (model)
 fechar ResultSet, PreparedStatement e Connection, preferencialmente com try-with-resources.
 
 
+
+# DriverManager.getConnection(...)
+
+O DriverManager é a classe responsável por gerenciar uma lista de drivers JDBC registrados e estabelecer conexões físicas com o banco de dados, a partir da URL,o usuário e a senha definidos no db.properties, sendo o ponto inicial de qualquer operação com o JDBC
+
+
+# PreparedStatement
+
+O PreparedStatement é uma interface que representa uma instrução SQL pré-compilada que permite a vinculação segura de parâmetros em tempo de execução.
+
+
+# executeUpdate() vs executeQuery()
+
+Ambos são métodos de Statement e PreparedStatement, mas possuem finalidades e retornos diferentes.
+
+executeUpdate() é utilizado para comandos que alteram dados (como INSERT, UPDATE, DELETE), retornando a quantidade de linhas afetadas, enquanto executeQuery() é usado para SELECT, retornando um ResultSet com os dados da consulta.
+
+
+# ResultSet 
+
+O ResultSet armazena os dados retornados do banco e permite percorrer os resultados, sendo utilizado para converter cada registro em objetos Java (model) exemplo: em um método instantiateX(rs).
+
+
