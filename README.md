@@ -1,8 +1,38 @@
 # Projeto de pesquisa geral - 2 DS (feito por: André Romualdo Da Silva Junior).
-|Explicação do que é o padrão DAO e exemplo.|
+
+|Explicação do que é o padrão DAO e exemplos.|
 
 
 -: O DAO (Data Access Object) é um padrão de projeto que encapsula o acesso aos dados em uma camada separada, permitindo que a lógica de negócios não tenha conhecimento direto das operações de acesso aos dados. Isso significa que a lógica do negócio permanece agnóstica em relação ao tipo de banco de dados. Ele surgiu com a necessidade de separarmos a lógica de negócios da lógica de persistência de dados. Este padrão permite que possamos mudar a forma de persistência sem que isso influencie em nada na lógica de negócio, além de tornar nossas classes mais legíveis.
+
+|O que ele evita?|
+
+-: o DAO evita o SQL espalhado pelo código, reduzindo o acoplamento e facilitando a manutenção, a organização e a troca de banco de dados.
+
+|O que vai em cada camada?|
+-: # model (objetos)
+
+São classes que representam as entidades do sistema, contendo atributos e getters/setters.
+
+# dao (interfaces/contratos)
+
+ Define os métodos de acesso aos dados (CRUD) e não o possui código SQL.
+
+# dao.impl (implementação)
+
+implementa as interfaces DAO e clntém SQL e uso de JDBC (PreparedStatement, ResultSet).
+
+# db (conexão e exceções)
+
+o ConnectionFactory, cria conexões com o banco.
+
+já o DbException, trata e padroniza erros do banco.
+
+# app (menu e orquestração)
+
+Classe principal (Main), interação com o usuário e chama os métodos dos DAOs (sem o SQL direto).
+
+
 
 Fontes: 
 
