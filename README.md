@@ -311,35 +311,40 @@ ps.setString(1, nome);
 
 # |meu Mapa Conceitual|
 
-DAO 
-│
--Interface (dao/)
-│   define contrato CRUD: inserir(),   buscarPorId(), atualizar(), deletar()
-│
--Implementação (dao.impl/)
-│  - Usa JDBC: Connection, PreparedStatement, ResultSet
-│  -SQL centralizado e parametrizado (?)
-│  -mapeamento ResultSet = Model via instantiateX(rs)
-│
 
-JDBC
-- ConnectionFactory (db/)
-│  - Lê db.properties
-│  - retorna Connection via DriverManager.getConnection()
-│
-- PreparedStatement
-│  - Previne SQL Injection
-│  - permite reutilização de plano de execução
-│
-- executeQuery() = ResultSet (SELECT)
-- executeUpdate() = int (INSERT/UPDATE/DELETE)
-│
+|DAO|
 
-Exceções
- SQLException (checked) = encapsulada em DbException (runtime)
-- mensagens padronizadas para diagnóstico
-│
+Interface (dao/)
+Define o CRUD: inserir, buscarPorId, atualizar, deletar
+Implementação (dao.impl/)
+Usa JDBC (Connection, PreparedStatement, ResultSet)
+SQL fica centralizado e usa parâmetros (?)
+Faz o mapeamento do ResultSet para objetos (ex: instantiateX)
 
-Transações 
-- begin -  operações múltiplas - commit / rollback
-= bem util quando várias tabelas são afetadas atomicamente
+|JDBC|
+
+ConnectionFactory (db/)
+Lê o db.properties
+Cria conexão com DriverManager.getConnection()
+PreparedStatement
+Evita SQL Injection
+Executa SQL com parâmetros
+
+|Execução|
+
+executeQuery() = SELECT (retorna ResultSet)
+
+executeUpdate()=  INSERT, UPDATE, DELETE
+
+|Exceções|
+
+SQLException é o erro do banco
+DbException encapsula esse erro
+Deixa o tratamento mais organizado
+
+|Transações|
+
+Agrupa várias operações
+commit confirma
+rollback desfaz em caso de erro
+Usado quando várias ações precisam acontecer juntas
