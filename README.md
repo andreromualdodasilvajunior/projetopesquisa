@@ -32,14 +32,63 @@ Ideia principal do artigo)
 
 Detalhe técnico)
 
-: Um detalhe técnico que o artigo deixa claro é o uso de interfaces para definir os métodos de acesso aos dados (CRUD) assim permitindo que diferentes implementações por exemplo, usando JDBC ou outro tipo de persistência possam ser trocadas sem atrapalhar o restante da aplicação.
+: Um detalhe técnico que o artigo deixa claro e podemos observar é o uso de interfaces para definir os métodos de acesso aos dados (CRUD) assim permitindo que diferentes implementações por exemplo, usando JDBC ou outro tipo de persistência possam ser trocadas sem atrapalhar o restante da aplicação.
 
 Como usar no projeto)
 
 : Usamos criando interfaces DAO para definir o CRUD e implementações separadas em dao.impl entao permitindo trocar a tecnologia de persistência sem alterar o restante do sistema.
 
-exemplo:
 
+3- https://www.dio.me/articles/o-que-e-dao-ba9c73921265
+
+Ideia principal do artigo)
+
+: Explicar o padrão DAO como uma forma de separar a lógica de acesso a dados da lógica de negócio, reduzindo o acoplamento além de que melhorando a organização do sistema fica mais fácil de aplicarmos no projeto.
+
+Detalhe técnico)
+
+: Um detalhe técnico observado é que antes do uso do DAO o código SQL ficava espalhado meio confuso pela aplicação e o padrão resolve isso centralizando todas as operações de acesso aos dados em um único lugar pra ficar menos desorganizado.
+
+Como usar no projeto)
+
+: usamos quando concentrando todo acesso ao banco nas classes DAO, evitando SQL no Main e deixando o código mais organizado e fácil de modificar.
+
+
+4- https://blog.singularityubrazil.com/blog/dao/
+
+Ideia principal do artigo)
+
+: Apresentar o conceito de DAO no nosso contexto geral assim mostrando a ideia de organização baseada em regras bem definidas e separação de setores e responsabilidade.
+
+Detalhe técnico)
+
+: Um detalhe técnico que observei é que o conceito trabalha com regras fáceis e não complicadas e estrutura organizada, onde cada parte do sistema tem sua função específica então evitando mistura de responsabilidades e conceitos.
+
+Como usar no projeto)
+
+: Aplicamos criando DAOs com funções bem definidas como o CRUD, mantendo cada parte do sistema organizada e com responsabilidade única sem embaralhar suas funções.
+
+
+5- https://www.macoratti.net/11/10/pp_dao1.htm
+
+Ideia principal do artigo)
+
+: Mostrar que o padrão DAO resolve problemas como código repetido, difícil manutenção e forte acoplamento e que ele separa o acesso aos dados da lógica da aplicação.
+
+Detalhe técnico)
+
+: Um detalhe técnico importante é que todo acesso ao banco deve passar pelo DAO, que encapsula as operações CRUD e permite trocar a fonte de dados sem afetar o restante do sistema.
+
+Como usar no projeto)
+
+: Aplicamos garantindo que todo acesso ao banco fique dentro de dao.impl usando interfaces DAO e mantendo o restante do sistema independente do banco.
+
+
+
+
+exemplos:
+
+1-
 import java.util.List;
 
 public interface IProdutoDAO {
@@ -48,4 +97,24 @@ public interface IProdutoDAO {
     void atualizar(Produto p);
     void deletar(int id);
 }
+
+
+2-
+class LivroDAO:
+    def __init__(self):
+        self.banco_dados = []
+
+    def salvar(self, livro):
+        self.banco_dados.append(livro)
+        print(f"Livro '{livro.titulo}' salvo com sucesso")
+
+    def listar(self):
+        return self.banco_dados
+
+    def buscar_por_id(self, id):
+        for livro in self.banco_dados:
+            if livro.id == id:
+                return livro
+        return None
+
 
