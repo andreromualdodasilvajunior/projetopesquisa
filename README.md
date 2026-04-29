@@ -3,7 +3,7 @@
 # |Explicação do que é o padrão DAO e exemplos.|
 
 
--: O DAO (Data Access Object) é um padrão de projeto que encapsula o acesso aos dados em uma camada separada, permitindo que a lógica de negócios não tenha conhecimento direto das operações de acesso aos dados. Isso significa que a lógica do negócio permanece agnóstica em relação ao tipo de banco de dados. Ele surgiu com a necessidade de separarmos a lógica de negócios da lógica de persistência de dados. Este padrão permite que possamos mudar a forma de persistência sem que isso influencie em nada na lógica de negócio, além de tornar nossas classes mais legíveis.
+-: O DAO (Data Access Object) é um padrão de projeto que encapsula o acesso aos dados em uma camada separada, permitindo que a lógica de negócios não tenha conhecimento direto das operações de acesso aos dados. Isso pelo que observei significa que a lógica do negócio permanece agnóstica em relação ao tipo de banco de dados, esse padrão permite que possamos mudar a forma de persistência sem que isso influencie em nada na lógica de negócio, além de tornar nossas classes mais legíveis.
 
 # |O que ele evita?|
 
@@ -210,4 +210,96 @@ executeUpdate() é utilizado para comandos que alteram dados (como INSERT, UPDAT
 
 O ResultSet armazena os dados retornados do banco e permite percorrer os resultados, sendo utilizado para converter cada registro em objetos Java (model) exemplo: em um método instantiateX(rs).
 
+# Fontes
 
+1- https://www.dio.me/articles/jdbc-java-database-connectivity-uma-visao-geral-57b6b447ec8d
+
+Ideia principal do artigo)
+
+: Explicar o funcionamento do JDBC como uma API que permite a comunicação entre aplicações Java e bancos de dados.
+
+Detalhe técnico)
+
+: Um detalhe técnico lá é que o JDBC segue um fluxo de etapas bem definidas, como abrir conexão, facilitando a organização no acesso.
+
+Como usar no projeto)
+
+: Aplicamos seguindo esse fluxo dentro dos DAOs, garantindo que toda operação com o banco siga uma sequência mais organizada.
+
+
+2- https://www.devmedia.com.br/jdbc-alem-do-basico/32338
+
+Ideia principal do artigo)
+
+: Mostrar o uso do JDBC de forma mais aprofundada, como diz no título além do basico destacando boas práticas no uso de conexões e comandos SQL.
+
+Detalhe técnico)
+
+: Um detalhe técnico no geral é o uso correto de PreparedStatement e o gerenciamento de recursos para evitar problemas como vazamento de conexão.
+
+Como usar no projeto)
+
+: Aplicamos utilizando PreparedStatement e garantindo o fechamento correto das conexões dentro do DAO em nosso projeto.
+
+
+3-
+ https://www.servicenow.com/docs/r/pt-BR/xanadu/servicenow-platform/orchestration/t_CreateAJDBCActivity.html
+
+Ideia principal do artigo)
+
+: a ideia é explicar como funciona a integração com banco de dados utilizando JDBC em atividades automatizadas.
+
+Detalhe técnico)
+
+: E um detalhe técnico observado é a necessidade de configurar corretamente a conexão e os parâmetros antes de executar qualquer operação lá no banco de dados.
+
+Como usar no projeto)
+
+: usamos no projeto quando garantindo que a conexão seja sempre configurada corretamente através do ConnectionFactory antes de executar qualquer SQL.
+
+
+4- https://www.ibm.com/docs/pt-br/was-nd/8.5.5?topic=architecture-connection-life-cycle
+
+Ideia principal do artigo)
+
+: a ideia é basicamente apresentar o ciclo de vida da conexão com banco de dados, mostrando os estados que uma conexão pode ter durante seu uso.
+
+Detalhe técnico)
+
+: Um detalhe técnico importante é que a conexão pode estar em estados como: em uso, sendo gerenciada conforme a aplicação que precisa utilizar ou liberar recursos. 
+
+Como usar no projeto)
+
+: Aplicamos basicamente quando a gente abre conexões apenas quando necessário e fechando certinho após o uso, evitando desperdício de recursos pra não bagunçar e fica até confuso pra achar onde usamos algo que pode dar erro.
+
+# Mapa Conceitual
+
+DAO 
+│
+-Interface (dao/)
+│   define contrato CRUD: inserir(),   buscarPorId(), atualizar(), deletar()
+│
+-Implementação (dao.impl/)
+│  - Usa JDBC: Connection, PreparedStatement, ResultSet
+│  -SQL centralizado e parametrizado (?)
+│  -mapeamento ResultSet = Model via instantiateX(rs)
+│
+JDBC
+- ConnectionFactory (db/)
+│  - Lê db.properties
+│  - retorna Connection via DriverManager.getConnection()
+│
+- PreparedStatement
+│  - Previne SQL Injection
+│  - permite reutilização de plano de execução
+│
+- executeQuery() = ResultSet (SELECT)
+- executeUpdate() = int (INSERT/UPDATE/DELETE)
+│
+Exceções
+ SQLException (checked) = encapsulada em DbException (runtime)
+- mensagens padronizadas para diagnóstico
+│
+Transações 
+- begin -  operações múltiplas - commit / rollback
+= bem util quando várias tabelas são afetadas atomicamente
