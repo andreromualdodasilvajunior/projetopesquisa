@@ -36,7 +36,7 @@ Classe principal (Main), interação com o usuário e chama os métodos dos DAOs
 
 
 
-# Fontes: 
+# |fontes|: 
 
 1- https://www.devmedia.com.br/dao-pattern-persistencia-de-dados-utilizando-o-padrao-dao/30999
 
@@ -210,7 +210,7 @@ executeUpdate() é utilizado para comandos que alteram dados (como INSERT, UPDAT
 
 O ResultSet armazena os dados retornados do banco e permite percorrer os resultados, sendo utilizado para converter cada registro em objetos Java (model) exemplo: em um método instantiateX(rs).
 
-# Fontes
+# |fontes|
 
 1- https://www.dio.me/articles/jdbc-java-database-connectivity-uma-visao-geral-57b6b447ec8d
 
@@ -272,7 +272,23 @@ Como usar no projeto)
 
 : Aplicamos basicamente quando a gente abre conexões apenas quando necessário e fechando certinho após o uso, evitando desperdício de recursos pra não bagunçar e fica até confuso pra achar onde usamos algo que pode dar erro.
 
-# Mapa Conceitual
+5- https://pt.linkedin.com/pulse/understanding-basics-jdbc-java-database-connectivity-animireddy-6ynnc?tl=pt
+
+Ideia principal do artigo)
+
+: Explicar os conceitos básicos do JDBC e como ele permite executar comandos SQL e manipular dados em aplicações Java.
+
+Detalhe técnico)
+
+: e um detalhe técnico é que o JDBC segue etapas como criar conexão, preparar comandos, executar queries e processar resultados antes de finalizar a conexão. 
+
+
+como usar no projeto)
+
+: basicamente aplicamos seguindo esse ciclo dentro dos métodos DAO, garantindo que cada operação no banco siga todas as etapas.
+
+
+# |Mapa Conceitual|
 
 DAO 
 │
