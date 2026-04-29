@@ -321,6 +321,7 @@ DAO
 │  -SQL centralizado e parametrizado (?)
 │  -mapeamento ResultSet = Model via instantiateX(rs)
 │
+
 JDBC
 - ConnectionFactory (db/)
 │  - Lê db.properties
@@ -333,10 +334,12 @@ JDBC
 - executeQuery() = ResultSet (SELECT)
 - executeUpdate() = int (INSERT/UPDATE/DELETE)
 │
+
 Exceções
  SQLException (checked) = encapsulada em DbException (runtime)
 - mensagens padronizadas para diagnóstico
 │
+
 Transações 
 - begin -  operações múltiplas - commit / rollback
 = bem util quando várias tabelas são afetadas atomicamente
