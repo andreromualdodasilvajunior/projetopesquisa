@@ -287,8 +287,29 @@ como usar no projeto)
 
 : basicamente aplicamos seguindo esse ciclo dentro dos métodos DAO, garantindo que cada operação no banco siga todas as etapas.
 
+# |Segurança (SQL Injection e PreparedStatement)|
 
-# |Mapa Conceitual|
+SQL Injection
+
+-: SQL Injection é uma falha de segurança que ocorre quando comandos SQL são montados por meio de concatenação de strings, permitindo que usuários malvados ou hackers insiram códigos SQL dentro de campos de entrada e alterem o comportamento da consulta.
+
+PreparedStatement
+
+-: O PreparedStatement evita SQL Injection pois separa o comando SQL dos dados, utilizando parâmetros (?) que são tratados de forma segura pelo banco de dados.
+
+
+exemplo:
+
+String sql = "SELECT * FROM usuario WHERE nome = ?";
+PreparedStatement ps = conn.prepareStatement(sql);
+ps.setString(1, nome);
+
+# Transações
+
+-: Transações são um conjunto de operações realizadas no banco de dados que devem ser executadas completamente ou não serem executar desse jeito garantindo a integridade dos dados.
+
+
+# |meu Mapa Conceitual|
 
 DAO 
 │
